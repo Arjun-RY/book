@@ -1,0 +1,27 @@
+Creating a web application for bookstore management using Java, MySQL, and Thymeleaf involves several steps and components. Here’s a comprehensive description of the project, including the features and functionality for each role (shopkeeper, seller, and customer):
+
+Project Overview
+Objective: To develop a web application that manages bookstore operations efficiently. The system will support three types of users: shopkeeper, seller, and customer, each having specific functionalities.
+
+Technology Stack:
+
+Backend: Java (Spring Boot)
+Frontend: Thymeleaf (template engine for Spring Boot)
+Database: MySQL
+Additional Tools: Maven (for project management), Hibernate/JPA (for ORM), Spring Security (for authentication and authorization), Bootstrap (for responsive design)
+Roles and Functions
+Shopkeeper
+
+Inventory Management: Add, update, and delete books from the inventory.
+View Reports: Access sales reports, inventory reports.
+Upload Images: Upload discount , new arrival book images for home page
+
+Seller
+
+Book Listings: Create bill for customer orders.
+Sales Reports: View their own sales reports and performance metrics.
+
+Customer
+
+Browse Books: View available books with details such as title, author, price, and description.
+Order Reports: View their bills
