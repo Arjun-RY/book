@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .error-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .error-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-message">
+            <h2>An error occurred:</h2>
+            <p th:text="${error}"></p>
+            <button class="back-button" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

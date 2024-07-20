@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Purchase</title>
+    <style>
+    h2 {
+        text-align: center;
+    }
+
+    .input-boxes {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .labels {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 50px;
+    }
+
+    .labels select,
+    .labels input[type="text"],
+    .labels input[type="number"] {
+        width: 150px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    th,
+    td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .remove-book {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+    .remove-book:hover {
+        background-color: #d32f2f;
+    }
+    
+    .header {
+            height: 110px;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .left-section p {
+            margin: 0;
+            margin-left: 40px;
+            padding: 0;
+        }
+
+        .center-section {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .center-section h1 {
+            margin: 0;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-section button {
+            margin-bottom: 10px;
+            margin-right: 40px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #8bc34a; 
+            text-decoration: none;
+            color: black; 
+        }
+
+        .right-section button a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .right-section button:hover {
+            background-color: #7cb342; 
+            text-decoration: none; 
+        }
+        
+        .footer {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 40px;
+            background-color: #f4f4f4;
+            text-align: center;
+            line-height: 42px;
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+</style>
+
+    
+</head>
+<body>
+	<div class="header">
+        <div class="left-section">
+		    <p>Name: <span th:text="${name}"></span></p>
+        	<p>Role: <span th:text="${role}"></span></p>
+		</div>
+
+        <div class="center-section">
+            <h1> Santhosh Book Store</h1>
+        </div>
+        <div class="right-section">
+            <a href="logout"><button>Logout</button></a>
+        </div>
+    </div>
+    <h2>Create Bill</h2>
+        <div class="input-boxes">
+            <div class="labels">
+                <label for="categoryDropdown">Category:</label>
+                <select id="categoryDropdown" required>
+                    <option value="">Select Category</option>
+                    <option value="HORROR">HORROR</option>
+                    <option value="COMIC">COMIC</option>
+                    <option value="HISTORY">HISTORY</option>
+                    <option value="POETRY">POETRY</option>
+                </select>
+            </div>
+            <div class="labels">
+                <label for="bookDropdown">Book:</label>
+                <select id="bookDropdown"><option value="">Select Book</option></select>
+            </div>
+            <div class="labels">
+                <label for="priceBox">Price:</label>
+                <input type="text" id="priceBox" readonly required>
+            </div>
+            <div class="labels">
+                <label for="quantityBox">Quantity :<span id="numrange" style="display: inline-block; margin-left: 5px; min-width: 15px;"> 1 </span></label>
+                <input type="range" id="quantityBox" value="1" min="1" required>
+            </div>
+            <div class="labels">
+                <label for="amountBox">Amount:</label>
+                <input type="number" id="amountBox" readonly required>
+            </div>
+        </div>
+        <button type="button" class="add-books" onclick="addBook()" style="margin-left:720px; margin-bottom: 20px">Add Book</button>
+    <form action="createnewbill" method="post">
+        <table id="billTable" style="margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Book Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="billTableBody">
+			</tbody>
+        </table>
+        <label for="totalAmount" style="margin-bottom: 20px; margin-left : 607px; padding:10px">Total Amount:</label>
+        <input type="number" id="totalAmount" name='totalAmount' readonly required>
+        <br>
+        <br>
+        <label for="customerName" style="margin-bottom: 20px; margin-left: 590px; padding:10px">Customer Name:</label>
+        <input type="text" id="customerName" name = "customerName" required>
+        <br>
+            <button type="submit" style="margin-top: 20px; margin-left:720px;">Create Bill</button>  
+    </form>
+    <br>
+    	<button type="button" onclick="window.history.back()" style="margin-top: 20px; margin-left:730px;" >Cancel</button>
+    <div class="footer">
+         2024 Book Store . All Rights reserved.
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function fetchBooks() {
+            var category = document.getElementById("categoryDropdown").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "bookoptions", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log("fetchbooks");
+                        var bookDropdown = document.getElementById("bookDropdown");
+                        bookDropdown.innerHTML = xhr.responseText;
+                        
+                        fetchPriceQuantity();
+                    } else {
+                        console.error("Request failed: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send("category=" + category);
+        }
+
+        document.getElementById("categoryDropdown").addEventListener("change", fetchBooks);
+    });
+
+    function fetchPriceQuantity() {
+        var book = document.getElementById("bookDropdown").value;
+        var category = document.getElementById("categoryDropdown").value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "getprice", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log("fetchPriceQuantity");
+                    var response = JSON.parse(xhr.responseText);
+                    var price = response.price;
+                    var quantity = response.quantity;
+
+                    document.getElementById("priceBox").value = price;
+                    document.getElementById("quantityBox").setAttribute("max", quantity);
+                    document.getElementById("amountBox").value = document.getElementById("quantityBox").value*price;
+                } else {
+                    console.error("Request failed: " + xhr.status);
+                }
+            }
+        };
+        var data = "book=" + book + "&category=" + category;
+        xhr.send(data);
+    }
+    document.getElementById("bookDropdown").addEventListener("change", fetchPriceQuantity);
+    document.getElementById("quantityBox").addEventListener("change",fetchPriceQuantity);
+    
+    function addBook() {
+        var bookDropdown = document.getElementById("bookDropdown");
+        var selectedBook = bookDropdown.options[bookDropdown.selectedIndex].text;
+        var category = document.getElementById("categoryDropdown").value;
+        var price = parseFloat(document.getElementById("priceBox").value);
+        var quantity = parseInt(document.getElementById("quantityBox").value);
+        var amount = price * quantity;
+
+        // Create a new row
+        var newRow = "<tr>" +
+            "<td></td>" +
+            "<td><input type='hidden' name='bookNames' value='" + selectedBook + "'>" + selectedBook + "</td>" +
+            "<td><input type='hidden' name='categories' value='" + category + "'>" + category + "</td>" +
+            "<td><input type='hidden' name='prices' value='" + price + "'>" + price + "</td>" +
+            "<td><input type='hidden' name='quantities' value='" + quantity + "'>" + quantity + "</td>" +
+            "<td><input type='hidden' name='amounts' value='" + amount + "'>" + amount + "</td>" +
+            "<td><button onclick='removeBook(this)'>Remove</button></td>" +
+            "</tr>";
+
+        var tableBody = document.getElementById("billTableBody");
+        tableBody.insertAdjacentHTML("beforeend", newRow);
+        
+        
+        document.getElementById("quantityBox").value = 1;
+        document.getElementById("numrange").textContent = 1;
+        updateSerialNumbers();
+        updateTotalAmount();
+    }
+
+    function removeBook(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateSerialNumbers();
+
+        updateTotalAmount();
+    }
+
+    function updateSerialNumbers() {
+        var serialNumbers = document.querySelectorAll("#billTable tbody tr td:first-child");
+        serialNumbers.forEach(function(serialNumber, index) {
+            serialNumber.textContent = index + 1;
+        });
+    }
+
+    function updateTotalAmount() {
+        var totalAmount = 0;
+        var amounts = document.querySelectorAll("#billTable tbody tr td:nth-child(6)");
+        amounts.forEach(function(amount) {
+            totalAmount += parseFloat(amount.textContent);
+        });
+        document.getElementById("totalAmount").value = totalAmount;
+
+        
+    } 
+    
+    document.getElementById("quantityBox").addEventListener("input", function() {
+        var quantityValue = this.value;
+        document.getElementById("numrange").textContent = quantityValue;
+        fetchPriceQuantity(); 
+    });
+</script>
+</body>
+</html>

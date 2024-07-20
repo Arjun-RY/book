@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+    	body {
+    		margin:0;
+    		padding:0;
+    		background-color: pink;
+    	}
+        .container {
+	        height:100%;
+	        background-color: pink;
+	        display: flex;
+	        justify-content: space-around;
+	        align-items: center; 
+	        margin-top: 20px;
+	    }
+	
+	    .box {
+	        margin-left: 7%;
+	        margin-right: 7%;
+	        margin-top:5%;
+	        margin-bottom:4.5%;
+	        width: 25%;
+	        overflow: hidden;
+	        border: 2px solid transparent; 
+	        border-radius: 10px; 
+	    }
+	
+	    .box img {
+	        width: 100%;
+	        height: auto;
+	    }
+	    
+	    .box-container{
+	     	display: flex;
+	    }
+	
+	    marquee{
+	    	
+	        padding: 20px;
+	        background-color: pink;
+	        position: fixed;
+	        font-size: 20px;
+    	}
+    	header {
+		    background-color: pink; 
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-between;
+		    padding: 10px 20px;
+		    box-sizing: border-box;
+		    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+		}
+		
+		.left-section {
+		    display: flex;
+		    gap: 10px;
+		}
+		
+		.center-section {
+			display: flex;
+		    text-align: center;
+		    font-size: 24px; 
+		    color: #333;
+		}
+		
+		.right-section {
+		    display: flex;
+		    gap: 10px;
+		}
+		
+		button[type="submit"],
+		button[type="button"] {
+		    padding: 10px 20px; 
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    transition: background-color 0.3s ease; 
+		}
+		
+		button[type="submit"] {
+		    background-color: #28a745; 
+		    color: white;
+		}
+		
+		button[type="submit"]:hover {
+		    background-color: #218838; 
+		}
+		
+		button[type="button"] {
+		    background-color: #ffc107; 
+		    color: white;
+		}
+		
+		button[type="button"]:hover {
+		    background-color: #e0a800; 
+		}
+		.modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: pink;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+	<header>
+		<div class="left-section">
+	        <button type="button" id="aboutUsBtn">About Us</button>
+		    <div id="aboutUsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About Us</h2>
+            <p>Welcome to Santosh Book Store, your one-stop destination for a wide variety of books, from timeless classics to the latest bestsellers. Established in 1995, we are a family-owned bookstore that has been serving the community with a passion for literature and a commitment to customer satisfaction.</p>
+            <p>Our mission is to foster a love of reading by offering a carefully curated selection of books for all ages and interests. Whether you are an avid reader, a casual browser, or looking for the perfect gift, we have something for everyone.</p>
+            <p>At Santosh Book Store, we believe in the power of books to inspire, educate, and transform lives. We host regular events including author signings, book clubs, and children's storytime, creating a vibrant and welcoming space for book lovers to connect and share their love of reading.</p>
+            <p>Our knowledgeable and friendly staff are always here to help you find your next great read or assist you with any special orders. We pride ourselves on our personalized service and our dedication to making your bookstore experience enjoyable and fulfilling.</p>
+            <p>Thank you for supporting our independent bookstore. We look forward to sharing our love of books with you!</p>
+            <p><strong>Contact Us:</strong><br>
+            Santosh Book Store<br>
+            Karur Main Street, Karur<br>
+            Phone: (0452) 3044697<br>
+            Email: info@santoshbookstores.com</p>
+        </div>
+    </div>
+	    </div>
+	    <div class="center-section">
+	        Santosh Book Store
+	    </div>
+	    <!-- If userId is null, show login and register buttons  th:if="${userId == null}"-->
+		<div class="right-section">
+	        <a href="login"><button type="button">Login</button></a>
+	        <a href="register"><button type="button">Register</button></a>
+	    </div>
+	</header>
+	
+	<div class="box-container">
+	<div th:each="base64Image : ${images}" class="box">
+	    	<img th:src="'data:image/jpeg;base64,' + ${base64Image}" alt="Base64 Image">
+		</div>
+	</div>
+	
+	<footer>
+	<div class="container">
+	    <marquee behavior="scroll" direction="left">
+	    	New arrivals: &emsp;&emsp;&emsp;
+	    	<span th:text="${books}"></span>
+		</marquee>
+	</div>
+	</footer>
+
+	<script>
+        var modal = document.getElementById("aboutUsModal");
+
+        var btn = document.getElementById("aboutUsBtn");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

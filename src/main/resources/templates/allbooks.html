@@ -1,0 +1,154 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Shop Keeper</title>
+	<style>
+	    .addbook {
+	        margin-left: 605px;
+	        margin-right: auto;
+	    }
+	    .booktables {
+	        margin-top: 20px;
+	        margin-left: 200px;
+	        margin-bottom: 60px; /* Adjust this value as needed */
+	    }
+	    table {
+	        border-collapse: collapse;
+	        width: 80%;
+	    }
+	    th, td {
+	        border: 1px solid black;
+	        padding: 8px;
+	        text-align: center;
+	        vertical-align: middle;
+	    }
+	    th {
+	        background-color: #f2f2f2;
+	    }
+	    
+	    .header {
+            height: 110px;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .left-section p {
+            margin: 0;
+            margin-left: 40px;
+            padding: 0;
+        }
+
+        .center-section {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .center-section h1 {
+            margin: 0;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-section button {
+            margin-bottom: 10px;
+            margin-right: 40px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #8bc34a; 
+            text-decoration: none;
+            color: black; 
+        }
+
+        .right-section button a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .right-section button:hover {
+            background-color: #7cb342; 
+            text-decoration: none; 
+        }
+        
+        .footer {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 40px;
+            background-color: #f4f4f4;
+            text-align: center;
+            line-height: 42px;
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+	</style>
+
+	
+</head>
+<body>
+	<div class="header">
+        <div class="left-section">
+		    <p>Name: <span th:text="${name}"></span></p>
+        	<p>Role: <span th:text="${role}"></span></p>
+		</div>
+
+        <div class="center-section">
+            <h1> Santhosh Book Store</h1>
+        </div>
+        <div class="right-section">
+            <a href="logout"><button>Logout</button></a>
+        </div>
+    </div> 
+	<h2 style="margin-left:705px;">Books List</h2>
+	<div class="booktables">
+				
+			    <table border="1">
+			        <tr>
+			            <th>Book Name</th>
+			            <th>Author</th>
+			            <th>Genre</th>
+			            <th>Price</th>
+			            <th>Quantity</th>
+			            <th>Actions</th>
+			        <tr th:each="book : ${books}">
+					    <form action="editbook" method="post">
+					        <input name="bookid" type="hidden" th:value="${book.bookId}">
+					        <td><input name="bookname" type="hidden" th:value="${book.bookName}"><span th:text="${book.bookName}"></span></td>
+					        <td><input name="authorname" type="hidden" th:value="${book.authorName}"><span th:text="${book.authorName}"></span></td>
+					        <td><input name="category" type="hidden" th:value="${book.category}"><span th:text="${book.category}"></span></td>
+					        <td><input name="price" type="hidden" th:value="${book.price}"><span th:text="${book.price}"></span></td>
+					        <td><input name="quantity" type="hidden" th:value="${book.availableCopies}"><span th:text="${book.availableCopies}"></span></td>
+					        <td class="buttons">
+					            <button type="submit">Edit</button>
+					     </form>
+					        <a th:href="@{/delete/{bookId}(bookId=${book.bookId})}">Delete</a>
+					    </td>
+					</tr>
+
+			    </table>
+			    
+    </div>
+    <a href="addbook" style= "margin-top: 50px; margin-left:715px" class="addbook"><button>ADD BOOK</button></a>
+    <div class="footer">
+         2024 Book Store . All Rights reserved.
+    </div>
+</body>
+</html>

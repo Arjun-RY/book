@@ -1,0 +1,172 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+    <style>
+
+    .container {
+        width: 50%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        text-align: center;
+    }
+    form {
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .button-container {
+        text-align: center;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    .header {
+            height: 110px;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .left-section p {
+            margin: 0;
+            margin-left: 40px;
+            padding: 0;
+        }
+
+        .center-section {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .center-section h1 {
+            margin: 0;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-section button {
+            margin-bottom: 10px;
+            margin-right: 40px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #8bc34a; 
+            text-decoration: none;
+            color: black; 
+        }
+
+        .right-section button a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+
+        .right-section button:hover {
+            background-color: #7cb342; 
+            text-decoration: none; 
+        }
+        
+        .footer {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 40px;
+            background-color: #f4f4f4;
+            text-align: center;
+            line-height: 42px;
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+	</style>
+</head>
+<body>
+	<div class="header">
+        <div class="left-section">
+		    <p>Name: <span th:text="${name}"></span></p>
+        	<p>Role: <span th:text="${role}"></span></p>
+		</div>
+
+        <div class="center-section">
+            <h1> Santhosh Book Store</h1>
+        </div>
+        <div class="right-section">
+            <a href="logout"><button>Logout</button></a>
+        </div>
+    </div>
+	<div class="container">
+    <h2>Edit Book</h2>
+    <form action="updatebook" method="post">
+	    <input type="hidden" name="bookid" th:value="${bookValues.bookId}" />
+	    
+	    <label for="bookname">Book Name:</label>
+	    <input type="text" id="bookname" name="bookname" th:value="${bookValues.bookName}" /><br>
+	    
+	    <label for="authorname">Author Name:</label>
+	    <input type="text" id="authorname" name="authorname" th:value="${bookValues.authorName}" /><br>
+	    
+	    <label for="genre">Category:</label>
+	    <select name="genre" required>
+	        <option value="HORROR" th:selected="${bookValues.category == 'HORROR'}">HORROR</option>
+	        <option value="COMIC" th:selected="${bookValues.category == 'COMIC'}">COMIC</option>
+	        <option value="HISTORY" th:selected="${bookValues.category == 'HISTORY'}">HISTORY</option>
+	        <option value="POETRY" th:selected="${bookValues.category == 'POETRY'}">POETRY</option>
+	    </select><br>
+	    
+	    <label for="price">Price:</label>
+	    <input type="text" id="price" name="price" th:value="${bookValues.price}" /><br>
+	    
+	    <label for="quantity">Quantity:</label>
+	    <input type="text" id="quantity" name="quantity" th:value="${bookValues.availableCopies}" /><br>
+	    
+	    <button type="submit">Update</button>
+	</form>
+
+    </div>
+	<div class="footer">
+         2024 Book Store . All Rights reserved.
+    </div> 
+</body>
+</html>

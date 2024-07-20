@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: sans-serif, Arial;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 300px;
+            height: 475px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%; 
+        }
+
+        .button-container button {
+            flex: 1;
+            padding: 14px 20px;
+            margin: 8px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="button"] {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        button[type="button"]:hover {
+            background-color: #ec971f;
+        }
+
+        .home-button-container { 
+            margin-top: 20px; 
+            display: flex;
+            justify-content: center;
+            width: 100%; 
+        }
+
+        .home-button-container button { 
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .home-button-container button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Login</h1>
+    <form action="login" method="post">
+        <label for="username"><b>Username : </b></label>
+        <input type="text" placeholder="Enter Username" name="username" required><br>
+        <label for="passkey"><b>Password : </b></label>
+        <input type="password" placeholder="Enter Password" name="passkey" required><br>
+        <div class="button-container">
+            <button type="submit">Submit</button>
+            <a href="/register"><button type="button">Register</button></a>
+        </div>
+        <div class="home-button-container"> 
+            <a href="/"><button type="button">HOME</button></a> 
+        </div>
+    </form>
+</div>
+</body>
+</html>
